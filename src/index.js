@@ -2,18 +2,18 @@
 import _ from 'lodash';
 import './style.css';
 import {
-  todoTasks, todoContainer, userTask,
-} from './modules/variable.js'
+  todoTasks, userTask,
+} from './modules/variable.js';
 import Actions from './modules/actions.js';
 import Task from './modules/task.js';
-import TaskStatus from './modules/taskStatus.js';
+
 let editId;
 let isEditedTask = false;
 // On page load render the dynamically created list of tasks in the dedicated placeholder.
 window.addEventListener('load', () => {
   Actions.displayTasks(todoTasks);
 });
-//populate an HTML list item element for each task.
+// populate an HTML list item element for each task.
 userTask.addEventListener('keyup', (event) => {
   if (event.keyCode === 13 && userTask.value) {
     if (!isEditedTask) { // is isEditedTask is not true
@@ -27,4 +27,4 @@ userTask.addEventListener('keyup', (event) => {
       isEditedTask = false;
     }
   }
-})
+});

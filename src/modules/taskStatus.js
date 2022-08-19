@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
-import { todoContainer, todoTasks, clearAllCompletedBtn } from './variable.js';
+import { todoContainer, todoTasks, } from './variable.js';
 import LocalStorage from './localStorage.js';
-import Actions from './actions.js';
 
 export default class TaskStatus {
   // toggle the completed status

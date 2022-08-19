@@ -5,5 +5,5 @@ export default class Task {
     this.id = todoTasks.length + 1;
     this.description = userTask.value;
     this.completed = false;
-    }
+  }
 }

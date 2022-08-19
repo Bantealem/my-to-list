@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import { todoContainer, todoTasks, } from './variable.js';
+import { todoContainer,todoTasks, } from './variable.js';
 import LocalStorage from './localStorage.js';
 
 export default class TaskStatus {

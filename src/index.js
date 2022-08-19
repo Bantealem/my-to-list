@@ -4,7 +4,9 @@ import './style.css';
 import {
   todoTasks, todoContainer, userTask,
 } from './modules/variable.js'
+import Actions from './modules/actions.js';
 import Task from './modules/task.js';
+import TaskStatus from './modules/taskStatus.js';
 let editId;
 let isEditedTask = false;
 // On page load render the dynamically created list of tasks in the dedicated placeholder.

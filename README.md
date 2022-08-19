@@ -1,7 +1,7 @@
 # Awesome Books
 In this project, I will build a simple HTML list of To Do tasks. The list will be styled according to the specifications listed later in this lesson. This simple web page will be built using webpack and served by a webpack dev server
 
-![screenshot](./images/awesome-books.png)
+
 
 ## Built With
 HTML
@@ -11,9 +11,9 @@ Webpack
 Linters (Lighthouse, Webhint, Stylelint, Eslint)
 Git/GitHub work-flow
 
-## LIVE DEMO
+## LIVE DEMO 
 
-[Live Demo Link]()
+[Live Demo Link](https://bantealem.github.io/my-to-list/)
 
 ## Getting Started
 

@@ -1,10 +1,11 @@
 /* eslint-disable no-plusplus */
 import './style.css';
 import {
-  todoTasks, userTask,
+  todoTasks, todoContainer, userTask,
 } from './modules/variable.js';
 import Actions from './modules/actions.js';
 import Task from './modules/task.js';
+import TaskStatus from './modules/taskStatus.js';
 
 let editId;
 let isEditedTask = false;
@@ -12,7 +13,8 @@ let isEditedTask = false;
 window.addEventListener('load', () => {
   Actions.displayTasks(todoTasks);
 });
-// populate an HTML list item element for each task.
+
+// populate the localStorage and the To-do List when the user press Enter
 userTask.addEventListener('keyup', (event) => {
   if (event.keyCode === 13 && userTask.value) {
     if (!isEditedTask) { // is isEditedTask is not true
@@ -27,3 +29,33 @@ userTask.addEventListener('keyup', (event) => {
     }
   }
 });
+
+//  Create the logic of delete and edit tasks
+todoContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('trash')) {
+    // Implement the functionality for deleting a task
+    userTask.value = '';
+    const currentId = e.target.parentElement.parentElement.parentElement.id;
+    Actions.removeTask(currentId);
+    Actions.displayTasks(todoTasks);
+  } else if (e.target.classList.contains('description')) {
+    // Implement the functionality for editing a task
+    userTask.focus();
+    // Iterate throw list items to setback the initial background color
+    const allLi = todoContainer.childNodes;
+    for (let i = 0; i < allLi.length; i++) {
+      allLi[i].style.backgroundColor = 'lightcyan';
+    }
+    // set the background color of the focuced list item
+    e.target.parentElement.parentElement.style.backgroundColor = 'lightyellow';
+    userTask.value = e.target.textContent;
+    editId = e.target.parentElement.parentElement.id;
+    isEditedTask = true;
+  }
+});
+
+// toggle the completed status of a todo' tasks
+TaskStatus.toggleCompleted();
+
+// delete all completed task
+TaskStatus.deleteAllCompleted();

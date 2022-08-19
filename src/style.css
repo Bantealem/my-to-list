@@ -8,10 +8,6 @@ body {
   background-color: ghostwhite;
 }
 
-header {
-  height: 4em;
-}
-
 .container {
   display: table;
   width: 100%;
@@ -65,4 +61,11 @@ input.add-input {
 
 .clear-list a {
   color: black;
+  text-align: center;
+}
+
+.todo-box {
+  display: table;
+  width: 100%;
+  text-align: center;
 }

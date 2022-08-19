@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
-
 import {
   todoTasks, userTask, todoContainer,
 } from './variable.js';
@@ -62,6 +61,23 @@ export default class Actions {
     if (!task) return null;
     todoTasks.push(task);
     LocalStorage.set(todoTasks);
+    return todoTasks;
+  };
+
+  // remove a task from both the to-do tasks' array and the localstorage
+  static removeTask = (taskId) => {
+    todoTasks.splice(taskId, 1);
+    Helpers.updateIndex();
+    LocalStorage.set(todoTasks);
+    return todoTasks;
+  };
+
+  // edit a task in both the to-do tasks' array and  the localstorage
+  static editTask = (editId, userTask) => {
+    todoTasks[editId].description = userTask.value;
+    LocalStorage.set(todoTasks);
+    // Actions.displayTasks(todoTasks);
+    userTask.value = '';
     return todoTasks;
   };
 }

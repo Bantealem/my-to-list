@@ -13,7 +13,7 @@ Git/GitHub work-flow
 
 ## LIVE DEMO 
 
-[Live Demo Link](https://bantealem.github.io/my-to-list/)
+[Live Demo Link]('https://bantealem.github.io/my-to-list/')
 
 ## Getting Started
 

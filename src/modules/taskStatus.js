@@ -6,7 +6,7 @@ import Actions from './actions.js';
 export default class TaskStatus {
   // toggle the completed status
   static toggleCompleted = () => {
-    todoContainer.addEventListener('change', (event) => {
+    todoContainer.addEventListener('.change', (event) => {
       if (event.target.className === 'checkbox') {
         const currentTask = event.target.parentElement.parentElement;
         todoTasks[currentTask.id].completed = !todoTasks[currentTask.id].completed;

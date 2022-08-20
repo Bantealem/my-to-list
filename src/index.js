@@ -1,158 +1,61 @@
+/* eslint-disable no-plusplus */
 import './style.css';
+import {
+  todoTasks, todoContainer, userTask,
+} from './modules/variable.js';
+import Actions from './modules/actions.js';
+import Task from './modules/task.js';
+import TaskStatus from './modules/taskStatus.js';
 
-const textInput = document.querySelector('input');
-const listToDo = document.querySelector('.listToDo');
-const clearAllbtn = document.querySelector('button');
+let editId;
+let isEditedTask = false;
+// On page load render the dynamically created list of tasks in the dedicated placeholder.
+window.addEventListener('load', () => {
+  Actions.displayTasks(todoTasks);
+});
 
-class MyObject {
-  constructor(description, completed, index) {
-    this.description = description;
-    this.completed = completed;
-    this.index = index;
-  }
-}
-const myArray = [];
-const updateLocal = () => {
-  const localData = JSON.parse(localStorage.getItem('list'));
-  const toDos = document.querySelectorAll('span');
-  for (let i = 0; i < toDos.length; i += 1) {
-    if (toDos[i].classList.contains('checkToDo')) {
-      localData[i].completed = true;
-    } else {
-      localData[i].completed = false;
+// populate the localStorage and the To-do List when the user press Enter
+userTask.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13 && userTask.value) {
+    if (!isEditedTask) { // is isEditedTask is not true
+      event.preventDefault();
+      const task = new Task(userTask);
+      Actions.addTask(task);
+      Actions.displayTasks(todoTasks);
+      userTask.value = '';
+    } else { // is isEditedTask is true, so we are editing the task
+      Actions.editTask(editId);
+      isEditedTask = false;
     }
-  }
-  localStorage.setItem('list', JSON.stringify(localData));
-};
-const removeToDo = (toDo) => {
-  listToDo.removeChild(toDo);
-  const localData = JSON.parse(localStorage.getItem('list'));
-  const data = Array.from(localData).filter((i) => i.completed === false);
-  data.forEach((el, index) => {
-    el.index = index + 1;
-  });
-  localStorage.setItem('list', JSON.stringify(data));
-};
-const editToDo = (toDoContainer, toDo) => {
-  const editInput = document.createElement('input');
-  editInput.type = 'text';
-  editInput.className = 'editInput';
-  editInput.value = toDo.textContent;
-  toDoContainer.replaceChild(editInput, toDo);
-  editInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const toDoContainers = document.querySelectorAll('.toDoContainer');
-      const localData = JSON.parse(localStorage.getItem('list'));
-      for (let i = 0; i < toDoContainers.length; i += 1) {
-        if (toDoContainers[i].classList.contains('checkedContainer')) {
-          localData[i].description = editInput.value;
-          localStorage.setItem('list', JSON.stringify(localData));
-        }
-      }
-      editInput.parentElement.classList.remove('checkedContainer');
-      toDoContainer.replaceChild(toDo, editInput);
-      toDo.textContent = editInput.value;
-    }
-  });
-  const removeIcons = document.querySelectorAll('.fa-trash');
-  removeIcons.forEach((i) => {
-    i.addEventListener('click', () => {
-      removeToDo(i.parentElement);
-    });
-  });
-};
-
-const addTodo = (toDoValue) => {
-  const toDoContainer = document.createElement('div');
-  toDoContainer.className = 'toDoContainer';
-  toDoContainer.innerHTML += `
-<input type="checkbox" class="checkbox"/>
-<span>${toDoValue}</span>
-<i class="fa fa-ellipsis-v"></i>
-<i class="fa fa-trash"></i>
-`;
-  listToDo.appendChild(toDoContainer);
-  const checkBox = document.querySelectorAll('.checkbox');
-  checkBox.forEach((i) => {
-    i.addEventListener('click', () => {
-      i.parentElement.classList.toggle('checkedContainer');
-      i.nextElementSibling.classList.toggle('checkToDo');
-      i.parentElement.lastElementChild.classList.toggle('trashActive');
-      i.parentElement.lastElementChild.previousElementSibling.classList.toggle('editDisable');
-      updateLocal();
-    });
-  });
-  const object = new MyObject(toDoValue, false, checkBox.length);
-  myArray.push(object);
-  localStorage.setItem('list', JSON.stringify(myArray));
-  const editIcons = document.querySelectorAll('.fa-ellipsis-v');
-  editIcons.forEach((i) => {
-    i.addEventListener('click', () => {
-      editToDo(toDoContainer, i.previousElementSibling);
-    });
-  });
-};
-
-textInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && textInput.value) {
-    addTodo(textInput.value);
-    textInput.value = null;
   }
 });
-const getFromLocal = (e) => {
-  e.preventDefault();
-  const data = JSON.parse(localStorage.getItem('list'));
-  data.forEach((i) => {
-    myArray.push(i);
-    const toDoContainer = document.createElement('div');
-    toDoContainer.className = 'toDoContainer';
-    toDoContainer.innerHTML += `
-        <input type="checkbox" class="checkbox">
-        <span>${i.description}</span>
-        <i class="fa fa-ellipsis-v"></i>
-        <i class="fa fa-trash"></i>
-        `;
-    listToDo.appendChild(toDoContainer);
-    const editIcons = document.querySelectorAll('.fa-ellipsis-v');
-    editIcons.forEach((i) => {
-      i.addEventListener('click', () => {
-        editToDo(toDoContainer, i.previousElementSibling);
-        i.parentElement.classList.add('checkedContainer');
-      });
-    });
-  });
-  const checkBox = document.querySelectorAll('.checkbox');
-  checkBox.forEach((i) => {
-    i.addEventListener('click', () => {
-      i.parentElement.classList.toggle('checkedContainer');
-      i.nextElementSibling.classList.toggle('checkToDo');
-      i.parentElement.lastElementChild.classList.toggle('trashActive');
-      i.parentElement.lastElementChild.previousElementSibling.classList.toggle('editDisable');
-      updateLocal();
-    });
-  });
-  const removeIcons = document.querySelectorAll('.fa-trash');
-  removeIcons.forEach((i) => {
-    i.addEventListener('click', () => {
-      removeToDo(i.parentElement);
-    });
-  });
-  localStorage.setItem('list', JSON.stringify(myArray));
-};
-window.addEventListener('load', getFromLocal);
 
-const clearAll = () => {
-  const localData = JSON.parse(localStorage.getItem('list'));
-  const toDoContainer = document.querySelectorAll('.toDoContainer');
-  toDoContainer.forEach((i) => {
-    if (i.classList.contains('checkedContainer')) {
-      removeToDo(i);
+//  Create the logic of delete and edit tasks
+todoContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('trash')) {
+    // Implement the functionality for deleting a task
+    userTask.value = '';
+    const currentId = e.target.parentElement.parentElement.parentElement.id;
+    Actions.removeTask(currentId);
+    Actions.displayTasks(todoTasks);
+  } else if (e.target.classList.contains('description')) {
+    // Implement the functionality for editing a task
+    userTask.focus();
+    // Iterate throw list items to setback the initial background color
+    const allLi = todoContainer.childNodes;
+    for (let i = 0; i < allLi.length; i++) {
+      allLi[i].style.backgroundColor = 'lightcyan';
     }
-  });
-  const data = Array.from(localData).filter((i) => i.completed === false);
-  data.forEach((el, index) => {
-    el.index = index + 1;
-  });
-  localStorage.setItem('list', JSON.stringify(data));
-};
-clearAllbtn.addEventListener('click', clearAll);
+    // set the background color of the focuced list item
+    e.target.parentElement.parentElement.style.backgroundColor = 'lightyellow';
+    userTask.value = e.target.textContent;
+    editId = e.target.parentElement.parentElement.id;
+    isEditedTask = true;
+  }
+});
+
+// toggle the completed status of a todo' tasks
+TaskStatus.toggleCompleted();
+
+// delete all completed task
+TaskStatus.deleteAllCompleted();

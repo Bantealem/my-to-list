@@ -32,7 +32,6 @@ header h1 {
 footer a {
   text-decoration: none;
   color: blue;
-  
 }
 
 .container {
@@ -91,12 +90,16 @@ input.add-input {
 input.checkbox {
   /* Double-sized Checkboxes */
   -ms-transform: scale(1.5);
+
   /* IE */
   -moz-transform: scale(1.5);
+
   /* FF */
   -webkit-transform: scale(1.5);
+
   /* Safari and Chrome */
   -o-transform: scale(1.5);
+
   /* Opera */
   transform: scale(1.5);
   width: 2em;

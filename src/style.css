@@ -32,8 +32,7 @@ a {
   color: inherit;
 }
 
-
-.list-container {
+.my-to-do-list {
   width: 100%;
   padding: 20px 5%;
   height: 100%;
@@ -44,7 +43,7 @@ a {
   box-sizing: border-box;
 }
 
-.list-selected {
+.selected-list {
   position: relative;
   min-width: 0;
   text-align: center;
@@ -59,7 +58,7 @@ a {
   margin-top: 5%;
 }
 
-#status {
+#stats {
   position: relative;
   padding: 0 92px 0 46px;
   height: 50px;
@@ -68,7 +67,7 @@ a {
   display: flex;
 }
 
-#status h1 {
+#stats h2 {
   color: #000;
   font-size: 20px;
   font-weight: 400;
@@ -76,6 +75,10 @@ a {
   line-height: 20px;
   text-align: initial;
   width: 80%;
+}
+
+hr {
+  color: #f6f6f6;
 }
 
 .refreshment {
@@ -88,10 +91,6 @@ a {
   padding: 20px 0;
   width: 20%;
   align-items: flex-end;
-}
-
-hr {
-  color: #f6f6f6;
 }
 
 .my-list {
@@ -142,4 +141,43 @@ input::-webkit-input-placeholder {
   border-color: #f6f6f6;
   font-size: 20px;
   padding: 16px 0;
+}
+
+
+/* dynamic page */
+
+#MyistToDo {
+  width: 1000px;
+}
+
+.toDo {
+  display: flex;
+  max-width: 1000px;
+  height: 50px;
+}
+
+.toDo .completed {
+  width: 10%;
+  background-color: #fff;
+  border-style: none;
+  font-size: 50px;
+  color: hsl(0deg 5% 74%);
+}
+
+.toDo .discription {
+  width: 98%;
+  color: #000;
+  padding-top: 2%;
+  font-size: 20px;
+  text-align: initial;
+  padding-left: 5px;
+}
+
+.toDo .dots {
+  width: 20%;
+  color: hsl(0deg 5% 74%);
+  font-size: 40px;
+  text-align: end;
+  padding-right: 10%;
+  font-weight: 900;
 }

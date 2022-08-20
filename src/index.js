@@ -12,7 +12,7 @@ const listArray = [{
 },
 ];
 
-const listToDo = document.getElementById('.listToDo');
+const listToDo = document.getElementById('.myListToDo');
 
 const onLoad = () => {
   listArray.forEach((task) => {

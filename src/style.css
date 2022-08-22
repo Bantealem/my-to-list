@@ -144,9 +144,4 @@ svg .trash:hover {
   font-weight: 600;
 }
 
-li div {
-  vertical-align: middle;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
+
